@@ -4,6 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+    "start": "node index.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "engines": {
@@ -22,6 +23,7 @@
     "helmet": "^7.1.0",
     "mysql": "^2.18.1",
     "mysql2": "^3.10.1",
+    "pg-promise": "^11.9.1",
     "puppeteer": "^23.2.2"
   }
 }
