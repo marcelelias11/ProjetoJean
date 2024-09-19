@@ -98,42 +98,8 @@ const Simulador = () => {
             placeholder="Digite a nota"
           />
         </label>
-        <label className="flex flex-col gap-2">
-          Campus:
-          <select className="border-red-900 border-2 rounded" value={campus} onChange={handleSelectChange}>
-            <option value="">Selecione um campus</option>
-            {/* Aqui você vai adicionar as opções de campus */}
-          </select>
-        </label>
-        <label className="flex flex-col gap-2">
-          Curso:
-          <select className="border-red-900 border-2 rounded" value={curso} onChange={handleSelectChange}>
-            <option value="">Selecione um curso</option>
-            {/* Aqui você vai adicionar as opções de cursos */}
-          </select>
-        </label>
-        <label className="flex flex-col gap-2">
-          Tipo de Graduação:
-          <select className="border-red-900 border-2 rounded" value={tipoGraduacao} onChange={handleSelectChange}>
-            <option value="">Selecione um tipo de graduação</option>
-            {/* Aqui você vai adicionar as opções de tipo de graduação */}
-          </select>
-        </label>{' '}
-        <label className="flex flex-col gap-2">
-          Turno:
-          <select className="border-red-900 border-2 rounded" value={turno} onChange={handleSelectChange}>
-            <option value="">Selecione um turno</option>
-            {/* Aqui você vai adicionar as opções de turnos */}
-          </select>
-        </label>
-        <button
-          className="bg-red-900 text-neutral-50 px-4 py-2 rounded hover:bg-red-800"
-          type="button"
-          onClick={handleSimular}
-        >
-          Simular
-        </button>
       </form>
+
       {notaCalculada && (
         <div>
           <h3>Nota calculada: {notaCalculada}</h3>
