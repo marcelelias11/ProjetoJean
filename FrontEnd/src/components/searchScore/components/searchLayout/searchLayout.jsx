@@ -1,63 +1,86 @@
 import styled from 'styled-components';
 import logo from '../../../../assets/images/logo.png';
 import nome from '../../../../assets/images/notafacil.png';
+import Menu from '../../../menuButton/menuButton';
 import { useNavigate } from 'react-router-dom';
 import { useState } from 'react';
 
-export default function SearchLayout ({title, options, link}){
-    const [isOpen, setIsOpen] = useState(false);
-    const [isCourse, setIsCourse] = useState(false);
-    // const cursos = ['Filosofia', 
-    //     'Geografia', 'Engenharia', 
-    //     'Ciência da Computação', 
-    //     'Arquitetura', 'Física', 
-    //     'Literatura', 'Astronomia', 
-    //     'Medicina'];
-    const navigate = useNavigate()
-    console.log(link)
-  
-    const toggleList = () => {
-        setIsOpen(!isOpen);
-      };
+export default function SearchLayout({ title, options, link }) {
+  const [isOpen, setIsOpen] = useState(false);
+  const [isCourse, setIsCourse] = useState(false);
+  const [selectedData, setSelectedData] = useState({ curso: '', campus: '', turno: '' }); // Estado para armazenar o objeto
+  const navigate = useNavigate();
 
-      const toggleList02 = () => {
-        setIsCourse(!isCourse);
-      };
-    return(
-        <Body>
-            <BoxImg>
-                <img className='logotipo' src={nome}/>
-                <img className='marcaNome' src={logo}/>
-            </BoxImg>
-            <BoxInput>
+  const toggleList = () => {
+      setIsOpen(!isOpen);
+  };
+
+  const handleOptionClick = (option) => {
+      // Atualiza o estado com a opção selecionada
+      if (link === 'campus') {
+          setSelectedData((prev) => ({
+              ...prev,
+              turno: option,
+          }));
+          console.log(option)
+      } else if (link === 'turno') {
+          setSelectedData((prev) => ({
+              ...prev,
+              campus: option,
+          }));
+          console.log(option)
+      } else {
+          setSelectedData((prev) => ({
+              ...prev,
+              curso: option,
+          }));
+          console.log(option)
+      }
+
+      // Armazena no localStorage
+      localStorage.setItem('selectedCourse', JSON.stringify(selectedData));
+
+      // Atualiza o estado para indicar que uma opção foi escolhida
+      setIsCourse(true);
+      setIsOpen(false); // Fecha a lista após selecionar a opção
+  };
+
+  return (
+      <Body>
+          <BoxImg>
+              <img className='logotipo' src={nome} />
+              <img className='marcaNome' src={logo} />
+          </BoxImg>
+          <BoxInput>
               <div className='miniBox' onClick={toggleList}>
-              <ion-icon name="school-outline" size="large"></ion-icon>
-                <h2>{title}</h2>
-                <span className="arrow">{isOpen ? '▲' : '▼'}</span>
+                  <ion-icon name="school-outline" size="large"></ion-icon>
+                  <h2>{title}</h2>
+                  <span className="arrow">{isOpen ? '▲' : '▼'}</span>
               </div>
               {isOpen && (
-                        <ul className="curso-list">
-                        {options.map((option, index) => (
-                            <li onClick={toggleList02} key={index}>{option}</li>
-                        ))}
-                        </ul>
-                    )}
-            </BoxInput>
-            <BoxButton>
-            {isCourse && (
-                <div onClick={()=> navigate({link})} className='miniButton'>
-                        Próximos Passos
-                    </div>
-            )}      
-            </BoxButton>
-            
-        </Body>
-        
-    )
+                  <ul className="curso-list">
+                      {options.map((option, index) => (
+                          <li onClick={() => handleOptionClick(option)} key={index}>
+                              {option}
+                          </li>
+                      ))}
+                  </ul>
+              )}
+          </BoxInput>
+          <BoxButton>
+              {isCourse && (
+                  <div onClick={() => navigate(link)} className='miniButton'>
+                      Próximos Passos
+                  </div>
+              )}
+          </BoxButton>
+          <Menu />
+      </Body>
+  );
 }
 
 const Body = styled.div`
-
+width:100%;
 @media (max-width: 768px) {
     width: 100%;
     margin-bottom: 10px;
@@ -70,19 +93,20 @@ const BoxImg = styled.div`
   justify-content:start;
   height: 30rem;
   width: 100%;
-
   .logotipo {
     margin:auto;
-    margin-bottom:-11rem;
-    width: 150%;
     height: 35rem; 
-    padding-right: 12rem;
+    object-fit:contain;
+    width:15rem;
+    
   }
 
   .marcaNome{
+    margin:auto;
     margin-top:-3.5rem;
-    width:25rem;
     height:25rem;
+    width:10rem;
+    object-fit:contain;
   }
 
  
@@ -100,21 +124,21 @@ const BoxInput = styled.div`
     justify-content:center;
     align-items:center;
     width:100%;
-    height:12rem;
+    height:10rem;
     overflow: visible;
     position: relative;
+    cursor:pointer;
   
-
     .miniBox{
     display:flex;
     align-items:center;
     justify-content:space-around;
-    width:50%;
+    width:20%;
     height:3rem;
-    position:fixed;
+    position:absolute;
     background-color:#FFF5D6;
     border-radius: 5px;
-    
+
     ion-icon {
         color: #6295F7;
         }
@@ -125,36 +149,49 @@ const BoxInput = styled.div`
     }
 
     h2{
-        font-family:"Arial";
         font-weight:600;
         color:#6295F7;
     } 
     
     .curso-list{
-    display:flex;
-    flex-direction:column;
-    justify-content:space-around;
-    align-items:center;
-    margin-top:13rem;
-    background-color:#FFF5D6;
-    width:75%;
-    max-height:10rem;
-    z-index:1;
-    position:absolute;
-    color:#757575;
-    font-weight:600;
-    font-family:"Arial";
-    overflow:scroll;
+      display:flex;
+      flex-direction:column;
+      justify-content:space-around;
+      align-items:center;
+      margin-top:13rem;
+      background-color:#FFF5D6;
+      width:20%;
+      max-height:10rem;
+      z-index:1;
+      position:absolute;
+      color:#757575;
+      font-weight:600;
+      overflow:scroll;
 
     li:hover{
-        background-color:#6295F7;
-        color:#FFFFFF;
+        
+        color:#6295F7;
     }
 
     li{
         margin-top:10px;
     }
+    
   }
+  .curso-list::-webkit-scrollbar {
+    width: 0px;
+}
+
+  @media (max-width: 768px) {
+      width:100%;
+      .miniBox{
+        width:70%;
+      }
+      .curso-list{
+        width:70%;
+      }
+}
+
 `
 
 const BoxButton = styled.div`
@@ -164,19 +201,25 @@ const BoxButton = styled.div`
     width:100%;
     height:8rem;
     margin-top: 5rem;
+    margin-bottom: 8rem;
 
     .miniButton{
     display:flex;
     align-items:center;
     justify-content:space-around;
-    width:40%;
+    width:20%;
     height:3rem;
-    position:fixed;
     border-radius:10px;
     background-color:#FDB786;
-    font-family:'Arial';
     font-weight:600;
     color:black;
+    cursor:pointer;
     }
+    @media (max-width: 768px) {
+      width:100%;
+      .miniButton{
+        width:40%;
+      }
+}
 `
     

@@ -11,7 +11,7 @@ function SearchScore() {
   return (
     <>
         <Routes>
-          <Route path="/" element={<SearchCourse/>}/>
+          <Route path="/teste" element={<SearchCourse/>}/>
           <Route path="/campus" element={<SearchCampus/>}/>
           <Route path="/turno" element={<SearchTurn/>}/>
         </Routes>

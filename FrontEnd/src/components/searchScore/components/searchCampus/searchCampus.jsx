@@ -9,7 +9,7 @@ export default function SearchCampus(){
         <SearchLayout
         title={'Escolha o campus'}
         options={options}
-        link={'/campus'}
+        link={'/turno'}
         />
         </>
     )
