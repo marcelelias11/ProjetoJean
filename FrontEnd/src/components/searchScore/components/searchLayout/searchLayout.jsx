@@ -18,13 +18,18 @@ export default function SearchLayout({ title, options, link }) {
 
   const handleOptionClick = (option) => {
     console.log(link);
-    if (link === '/campus') {
-            localStorage.setItem('curso', option)
+    if (link === '/curso') {
+            localStorage.setItem('tipo', option)
+            console.log(option + " tipo");
     } else if (link === '/turno') {
             localStorage.setItem('campus', option);
         console.log(option + " Campus");
-    } else {    
-        localStorage.setItem('turno', option);
+    } else if (link === '/tipo') {
+            localStorage.setItem('turno', option);
+        console.log(option + " turno");
+    }else {    
+        localStorage.setItem('curso', option);
+        console.log(option + " curso");
     }
     setTitleOp(option);
     // Atualiza o estado para indicar que uma opção foi escolhida

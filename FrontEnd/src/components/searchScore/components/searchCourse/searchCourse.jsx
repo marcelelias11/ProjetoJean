@@ -1,12 +1,39 @@
 import SearchLayout from "../searchLayout/searchLayout";
+import { useState, useEffect } from 'react';
+
+function createOption() {
+    const [options, setOptions] = useState([]);
+    console.log(localStorage.getItem("campus"));
+    console.log(localStorage.getItem("tipo"));
+    useEffect(() => {
+        fetch("http://localhost:8080/curso", {
+            method: "POST",
+            mode: "cors",
+            headers: {
+              Accept: "application/json",
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+              campus: localStorage.getItem("campus"),
+              tipo: localStorage.getItem("tipo"),
+            }),
+          })
+      .then(async function (response) {
+        return await response.json();
+      })
+      .then(async function (text) {
+        console.log(text)
+        setOptions(text)
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+     }, []) 
+    return options
+}
 
 export default function SearchCourse(){
-    const options = ['Filosofia', 
-        'Geografia', 'Engenharia', 
-        'Ciência da Computação', 
-        'Arquitetura', 'Física', 
-        'Literatura', 'Astronomia', 
-        'Medicina'];
+    const options = createOption()
     return(
         <>
         <SearchLayout
