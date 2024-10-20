@@ -8,6 +8,7 @@ import { useState } from 'react';
 export default function SearchLayout({ title, options, link }) {
   const [isOpen, setIsOpen] = useState(false);
   const [isCourse, setIsCourse] = useState(false);
+  const [titleOp, setTitleOp] = useState(title);
   //const [selectedData, setSelectedData] = useState({ curso: '', campus: '', turno: '' }); // Estado para armazenar o objeto
   const navigate = useNavigate();
 
@@ -25,7 +26,7 @@ export default function SearchLayout({ title, options, link }) {
     } else {    
         localStorage.setItem('turno', option);
     }
-
+    setTitleOp(option);
     // Atualiza o estado para indicar que uma opção foi escolhida
     setIsCourse(true);
     setIsOpen(false); // Fecha a lista após selecionar a opção
@@ -40,7 +41,7 @@ export default function SearchLayout({ title, options, link }) {
           <BoxInput>
               <div className='miniBox' onClick={toggleList}>
                   <ion-icon name="school-outline" size="large"></ion-icon>
-                  <h2>{title}</h2>
+                  <h2>{titleOp}</h2>
                   <span className="arrow">{isOpen ? '▲' : '▼'}</span>
               </div>
               {isOpen && (
