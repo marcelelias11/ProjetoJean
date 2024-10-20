@@ -1,5 +1,6 @@
 import styled from 'styled-components';
 import { useState} from 'react';
+import { useNavigate } from 'react-router-dom';
 import { NoteLocalStorage } from '../../hooks/NoteStorage';
 import logo from '../../assets/images/notafacil.png'
 import nat from '../../assets/icons/01.png'
@@ -16,6 +17,7 @@ import edit from '../../assets/icons/edit.png'
 import Menu from '../menuButton/menuButton';
 
 export default function SignupScore (){
+  const navigate = useNavigate();
   const [notes, setNotes] = useState(() => {
     const savedNotes = localStorage.getItem('notes');
     return savedNotes ? JSON.parse(savedNotes) : {
@@ -156,7 +158,7 @@ export default function SignupScore (){
           <Input signup={signup} type="text" placeholder={notes.red} />
         </InputContainer>
         <div className='boxButtons'>
-         <Button>Salvar Notas</Button>
+         <Button onClick={() => navigate('/result')}>Salvar Notas</Button>
         <button onClick={backLocal} className='back'>Voltar</button> 
         </div>
         

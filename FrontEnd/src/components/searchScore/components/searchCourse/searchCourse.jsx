@@ -12,7 +12,7 @@ export default function SearchCourse(){
         <SearchLayout
         title={'Escolha o curso'}
         options={options}
-        link={'/campus'}
+        link={'/signup'}
         />
         </>
     )
