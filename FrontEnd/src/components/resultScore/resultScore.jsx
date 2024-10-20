@@ -41,6 +41,9 @@ const Body = styled.div`
     width:10%;
 }
 @media (max-width: 768px) {
+   height: 52rem;
+   align-items:center;
+   justify-content:center;
     .emoji{
         width:30%;
     }
@@ -97,12 +100,12 @@ const Footer = styled.div`
     }
 }
 @media (max-width: 768px) {
-   // position: fixed;
-   margin-top: 1.5rem;
-    border:1px solid black;
+   //position: fixed;
+   //margin-top: -188rem;
   //bottom: 0;
   //left: 0;
   width: 100%;
+  //display:none;
 
   div{
     width:80%;
@@ -159,7 +162,6 @@ justify-content:space-around;
     height:25rem;
     font-size:45px;
     font-weight:700;
-
     h1{
         color:#1E1E1E;
     }

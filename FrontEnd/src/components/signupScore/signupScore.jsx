@@ -16,44 +16,51 @@ import edit from '../../assets/icons/edit.png'
 import Menu from '../menuButton/menuButton';
 
 export default function SignupScore (){
-    const [notes, setNotes] = useState(() => {
-      // Inicializa o estado a partir do localStorage se disponível
-      const savedNotes = localStorage.getItem('notes');
-      console.log(JSON.stringify(savedNotes))
-      return savedNotes ? JSON.parse(savedNotes) : {
-        natureza: '',
-        humano: '',
-        ling: '',
-        mat: '',
-        red: '',
-        signup: false
-      };
-    });
+  const [notes, setNotes] = useState(() => {
+    const savedNotes = localStorage.getItem('notes');
+    return savedNotes ? JSON.parse(savedNotes) : {
+      natureza: '',
+      humano: '',
+      ling: '',
+      mat: '',
+      red: '',
+      signup: false
+    };
+  });
+  
   const [tempNotes, setTempNotes] = useState({ ...notes });
+  const [errorMessage, setErrorMessage] = useState('');
 
   const updateTempNote = (key, value) => {
     setTempNotes((prev) => ({ ...prev, [key]: value }));
   };
 
+  function validateDecimal(numero) {
+    const numberPointer = numero.replace(',', '.');
+    const num = parseFloat(numberPointer);
+    return !isNaN(num) && num % 1 !== 0;
+  }
+
   const saveNotes = (event) => {
     event.preventDefault();
+    
+    const { natureza, humano, ling, mat, red } = tempNotes;
+    if (!validateDecimal(natureza) || !validateDecimal(humano) || !validateDecimal(ling) || 
+        !validateDecimal(mat) || !validateDecimal(red)) {
+      setErrorMessage('Todos os campos devem ser números decimais válidos.');
+      return; 
+    }
+
+    setErrorMessage(''); 
     const updatedNotes = { ...tempNotes, signup: true };
     setNotes(updatedNotes);
     localStorage.setItem('notes', JSON.stringify(updatedNotes));
   };
-
-  //const [ signup, setSignup ] = useState(true)
-  //const test = localStorage.getItem('notes')
-  const { signup } = notes
-   console.log(signup)
-  //console.log(notes)
-
-  // function addNote(event, note) {
-  //   event.preventDefault()
-  //   const updatedNotes = [...notes, note];
-  //   setNotes(updatedNotes);
-  //   localStorage.setItem('notes', JSON.stringify(updatedNotes));
-  // };
+  function backLocal(){
+    localStorage.removeItem("notes");
+    location.reload();
+  }
+  const { signup } = notes;
 
   return (
     <Container>
@@ -63,6 +70,7 @@ export default function SignupScore (){
             <img className='marcaNome' src={logo}/>
           </BoxImg>
       <Title>Minhas Notas</Title>
+      {errorMessage && <div style={{ color: 'red' }}>{errorMessage}</div>}
       <Form onSubmit={saveNotes}>
         <InputContainer signup={signup}>
         <img className='icon' src={nat}/>
@@ -115,8 +123,7 @@ export default function SignupScore (){
             />
         </InputContainer>
         <div className='boxButtons'>
-         <Button type="submit">Salvar Notas</Button>
-        <button className='back'>Voltar</button> 
+         <Button type="submit">Salvar Notas</Button> 
         </div>
         
       </Form>
@@ -150,7 +157,7 @@ export default function SignupScore (){
         </InputContainer>
         <div className='boxButtons'>
          <Button>Salvar Notas</Button>
-        <button className='back'>Voltar</button> 
+        <button onClick={backLocal} className='back'>Voltar</button> 
         </div>
         
       </Form>
