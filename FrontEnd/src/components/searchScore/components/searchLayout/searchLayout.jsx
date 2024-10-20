@@ -8,7 +8,7 @@ import { useState } from 'react';
 export default function SearchLayout({ title, options, link }) {
   const [isOpen, setIsOpen] = useState(false);
   const [isCourse, setIsCourse] = useState(false);
-  const [selectedData, setSelectedData] = useState({ curso: '', campus: '', turno: '' }); // Estado para armazenar o objeto
+  //const [selectedData, setSelectedData] = useState({ curso: '', campus: '', turno: '' }); // Estado para armazenar o objeto
   const navigate = useNavigate();
 
   const toggleList = () => {
@@ -16,34 +16,20 @@ export default function SearchLayout({ title, options, link }) {
   };
 
   const handleOptionClick = (option) => {
-      // Atualiza o estado com a opção selecionada
-      if (link === 'campus') {
-          setSelectedData((prev) => ({
-              ...prev,
-              turno: option,
-          }));
-          console.log(option)
-      } else if (link === 'turno') {
-          setSelectedData((prev) => ({
-              ...prev,
-              campus: option,
-          }));
-          console.log(option)
-      } else {
-          setSelectedData((prev) => ({
-              ...prev,
-              curso: option,
-          }));
-          console.log(option)
-      }
+    console.log(link);
+    if (link === '/campus') {
+            localStorage.setItem('curso', option)
+    } else if (link === '/turno') {
+            localStorage.setItem('campus', option);
+        console.log(option + " Campus");
+    } else {    
+        localStorage.setItem('turno', option);
+    }
 
-      // Armazena no localStorage
-      localStorage.setItem('selectedCourse', JSON.stringify(selectedData));
-
-      // Atualiza o estado para indicar que uma opção foi escolhida
-      setIsCourse(true);
-      setIsOpen(false); // Fecha a lista após selecionar a opção
-  };
+    // Atualiza o estado para indicar que uma opção foi escolhida
+    setIsCourse(true);
+    setIsOpen(false); // Fecha a lista após selecionar a opção
+}
 
   return (
       <Body>

@@ -3,6 +3,8 @@ import avatar from "../../assets/images/avat.png";
 import emojiH from "../../assets/icons/emojiH.png";
 import Menu from "../menuButton/menuButton";
 export default function ResultScore(){
+    let nome = localStorage.getItem('curso'); 
+    console.log(nome)
     return(
         <>
     <Body>
@@ -17,7 +19,7 @@ export default function ResultScore(){
     </BoxResults>
     <Footer>
         <div className="balao">
-            <p>Parabéns você passaria no curso de filosofia com essa nota !</p>
+            <p>Parabéns você passaria no curso de {nome} com essa nota !</p>
         </div>
             <img src={avatar} className="avatar"/>
     </Footer>
