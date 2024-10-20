@@ -4,7 +4,7 @@ import { useState, useEffect } from 'react';
 function createOption() {
     const [options, setOptions] = useState([]);
     useEffect(() => {
-        fetch("http://localhost:8080/turno")
+        fetch("http://localhost:8080/tipo")
       .then(async function (response) {
         return await response.json();
       })
@@ -19,14 +19,14 @@ function createOption() {
     return options
 }
 
-export default function SearchTurn(){
+export default function SearchType(){
      
     return(
         <>
         <SearchLayout
-        title={'Escolha o turno'}
+        title={'Escolha o tipo'}
         options={createOption()}
-        link={'/tipo'}
+        link={'/curso'}
         />
         </>
     )
