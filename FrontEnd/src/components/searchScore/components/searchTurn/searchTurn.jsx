@@ -8,7 +8,7 @@ export default function SearchTurn(){
         <SearchLayout
         title={'Escolha o turno'}
         options={options}
-        link={'/signup'}
+        link={'/teste'}
         />
         </>
     )

@@ -27,7 +27,7 @@ export default function Home (){
       console.log(newSumi + ' Else Chegou aqui !')
       setFala('Seu futuro começa aqui !')
       setSumi(1)
-      navigate('/teste')
+      navigate('/campus')
     }
 
 
