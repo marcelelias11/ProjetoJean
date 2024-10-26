@@ -43,7 +43,7 @@ db.query("SELECT * FROM dimcampus") //Queries de teste
     console.log("Campus:");
     console.log("ERROR:", error);
   });
-db.query("SELECT * FROM dimtipograd") //Queries de teste
+*/ db.query("SELECT * FROM dimtipograd") //Queries de teste
   .then((data) => {
     console.log("Tipo de Graduação:");
     console.log(data);
@@ -52,7 +52,7 @@ db.query("SELECT * FROM dimtipograd") //Queries de teste
     console.log("ERROR:", error);
   });
 
-db.query(
+/*db.query(
   "SELECT nomecurso FROM dimcurso WHERE idcurso IN (SELECT idcurso FROM fatoregistros WHERE idcampus = 1 AND idtipo = 2)"
 )
   .then((data) => {
@@ -61,11 +61,11 @@ db.query(
   })
   .catch((error) => {
     console.log("ERROR:", error);
-  }); //Query de teste, não utilizada*/
+  }); //Query de teste, não utilizada
 
 db.query("SELECT * FROM fatoregistros").then((data) => {
   console.log(data);
-});
+});*/
 
 app.use(cors()); //Implementa o protocolo "CORS" no servidor
 
@@ -187,7 +187,7 @@ app.post("/curso", (req, res) => {
 
 app.post("/result", (req, res) => {
   db.query(
-    `SELECT nota2024ac FROM fatoregistros WHERE idcurso IN (SELECT idcurso FROM dimcurso WHERE nomecurso = '${req.body.curso}')`
+    `SELECT nota2024ac FROM fatoregistros WHERE idcurso IN (SELECT idcurso FROM dimcurso WHERE nomecurso = '${req.body.curso}') AND idcampus IN (SELECT idcampus FROM dimcampus WHERE nomecampus = '${req.body.campus}') AND idtipo IN (SELECT idtipo FROM dimtipograd WHERE tipograduacao = '${req.body.tipo}')`
   )
     .then((data) => {
       console.log(data);

@@ -32,6 +32,8 @@ export default function ResultScore(){
           },
           body: JSON.stringify({
             curso: localStorage.getItem("curso"),
+            campus: localStorage.getItem("campus"),
+            tipo: localStorage.getItem("tipo"),
           }),
         })
     .then(async function (response) {
