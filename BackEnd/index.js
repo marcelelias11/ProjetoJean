@@ -63,6 +63,10 @@ db.query(
     console.log("ERROR:", error);
   }); //Query de teste, não utilizada*/
 
+db.query("SELECT * FROM fatoregistros").then((data) => {
+  console.log(data);
+});
+
 app.use(cors()); //Implementa o protocolo "CORS" no servidor
 
 /*app.use(
@@ -175,6 +179,24 @@ app.post("/curso", (req, res) => {
         .catch((error) => {
           console.log("ERROR:", error);
         });
+    })
+    .catch((error) => {
+      console.log("ERROR:", error);
+    });
+});
+
+app.post("/result", (req, res) => {
+  db.query(
+    `SELECT nota2024ac FROM fatoregistros WHERE idcurso IN (SELECT idcurso FROM dimcurso WHERE nomecurso = '${req.body.curso}')`
+  )
+    .then((data) => {
+      console.log(data);
+      const dataArr = [];
+      for (let x in data) {
+        dataArr.push(data[x].nota2024ac);
+      }
+      console.log(dataArr);
+      res.status(200).send(dataArr);
     })
     .catch((error) => {
       console.log("ERROR:", error);

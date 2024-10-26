@@ -2,33 +2,98 @@ import styled from "styled-components";
 import avatar from "../../assets/images/avat.png";
 import emojiH from "../../assets/icons/emojiH.png";
 import Menu from "../menuButton/menuButton";
+import { useState, useEffect } from 'react';
 export default function ResultScore(){
+    const [notasCorte, setNotasCorte] = useState(0)
     let nome = localStorage.getItem('curso'); 
-    console.log(nome)
-    return(
-        <>
-    <Body>
-        <img className="emoji" src={emojiH}/>
-    <BoxResults>
-        <h1>Sua nota é:</h1>
-        <h2>543</h2>
-        <h1>Status</h1>
-        <h2>Aprovado</h2>
-        <h1>Nota de corte:</h1>
-        <h2>Aprovado</h2>
-    </BoxResults>
-    <Footer>
-        <div className="balao">
-            <p>Parabéns você passaria no curso de {nome} com essa nota !</p>
-        </div>
-            <img src={avatar} className="avatar"/>
-    </Footer>
-    </Body>
-    <Menu/>
+    let notas = JSON.parse(localStorage.getItem('notes'));
+    let notassum = 0
+    for (let x in notas){
+      if (notas[x] == true){
+        break
+      }
+      let nota = String(notas[x]).replace(',', '.');
+      console.log(`Nota ${x}: ` + nota)
+      notassum += Number(nota)
+      console.log(notassum)
+    }
+    let notamedia = notassum/(Object.keys(notas).length-1)
+    console.log("notas.length: " + Object.keys(notas).length)
+    console.log(nome);
+    console.log(notas);
+    console.log(notamedia)
+    useEffect(() => {
+      fetch("http://localhost:8080/result", {
+          method: "POST",
+          mode: "cors",
+          headers: {
+            Accept: "application/json",
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            curso: localStorage.getItem("curso"),
+          }),
+        })
+    .then(async function (response) {
+      return await response.json();
+    })
+    .then(async function (text) {
+      console.log(text)
+      setNotasCorte(text)
+    })
+    .catch((error) => {
+      console.error(error);
+    });
+   }, [])
+   if (notamedia >= notasCorte[0]) {return(
+    <>
+<Body>
+    <img className="emoji" src={emojiH}/>
+<BoxResults>
+    <h1>Sua nota é:</h1>
+    <h2>{notamedia}</h2>
+    <h1>Status</h1>
+    <h2>Aprovado</h2>
+    <h1>Nota de corte:</h1>
+    <h2>Aprovado</h2>
+</BoxResults>
+<Footer>
+    <div className="balao">
+        <p>Parabéns você passaria no curso de {nome} com essa nota !</p>
+    </div>
+        <img src={avatar} className="avatar"/>
+</Footer>
+</Body>
+<Menu/>
+
+</>
+
+)}
+else {return(
+  <>
+<Body>
+  <img className="emoji" src={emojiH}/>
+<BoxResults>
+  <h1>Sua nota é:</h1>
+  <h2>{notamedia}</h2>
+  <h1>Status</h1>
+  <h2>Reprovado</h2>
+  <h1>Nota de corte:</h1>
+  <h2>Reprovado</h2>
+</BoxResults>
+<Footer>
+  <div className="balao">
+      <p>Infelizmente você não passaria no curso de {nome} com essa nota !</p>
+  </div>
+      <img src={avatar} className="avatar"/>
+</Footer>
+</Body>
+<Menu/>
+
+</>
+
+)}
     
-    </>
-    
-)
 }
 
 const Body = styled.div`
