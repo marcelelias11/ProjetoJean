@@ -19,7 +19,7 @@ const connection = {
   ssl: { require: true, rejectUnauthorized: false }, //Extremamente importante, não mexer
 };
 const db = pgp(connection); //A conexão com o banco de dados em si
-db.query("SELECT * FROM dimcurso") //Queries de teste
+/*db.query("SELECT * FROM dimcurso") //Queries de teste
   .then((data) => {
     console.log("Cursos:");
     console.log(data);
@@ -51,13 +51,17 @@ db.query("SELECT * FROM dimtipograd") //Queries de teste
   .catch((error) => {
     console.log("ERROR:", error);
   });
-/*db.query("SELECT * FROM dimcurso")
+
+db.query(
+  "SELECT nomecurso FROM dimcurso WHERE idcurso IN (SELECT idcurso FROM fatoregistros WHERE idcampus = 1 AND idtipo = 2)"
+)
   .then((data) => {
+    console.log("Tabela final");
     console.log(data);
   })
   .catch((error) => {
     console.log("ERROR:", error);
-  });*/
+  }); //Query de teste, não utilizada*/
 
 app.use(cors()); //Implementa o protocolo "CORS" no servidor
 
@@ -85,6 +89,97 @@ app.use(express.json()); //Parte do servidor que é responsável por receber os 
 
 app.use(express.static("src")); //Pasta onde irá ficar os arquivos extras, pode ser alterada
 app.use(compression()); //Compressão de dados
+
+app.get("/campus", (req, res) => {
+  //Requisição que retorna as opções de campus e as envia para o app
+  db.query("SELECT * FROM dimcampus")
+    .then((data) => {
+      console.log(data); //Teste
+      const dataArr = []; //Cria um array para armazenar os dados
+      for (let x in data) {
+        //Transforma os dados de um objeto para um array
+        dataArr.push(data[x].nomecampus);
+      }
+      console.log(dataArr); //Teste
+      res.status(200).send(dataArr); //Envia os dados para o app
+    })
+    .catch((error) => {
+      //Retorna se houve erros
+      console.log("ERROR:", error);
+    });
+});
+
+app.get("/tipo", (req, res) => {
+  //Requisição que retorna as opções de tipo de gradução e as envia para o app, ver detalhes acima
+  db.query("SELECT * FROM dimtipograd")
+    .then((data) => {
+      console.log(data);
+      const dataArr = [];
+      for (let x in data) {
+        dataArr.push(data[x].tipograduacao);
+      }
+      console.log(dataArr);
+      res.status(200).send(dataArr);
+    })
+    .catch((error) => {
+      console.log("ERROR:", error);
+    });
+});
+app.get("/turno", (req, res) => {
+  //Requisição que retorna as opções de turno e as envia para o app, ver detalhes acima
+  db.query("SELECT * FROM dimturno")
+    .then((data) => {
+      console.log(data);
+      const dataArr = [];
+      for (let x in data) {
+        dataArr.push(data[x].turno);
+      }
+      console.log(dataArr);
+      res.status(200).send(dataArr);
+    })
+    .catch((error) => {
+      console.log("ERROR:", error);
+    });
+});
+
+app.post("/curso", (req, res) => {
+  //Função que recebe do app o campus e o tipo de graduação escolhida, e retorna quais cursos estão disponíveis baseado nestas escolhas
+  console.log(req.body.campus); //Teste
+  console.log(req.body.tipo); //Teste
+  db.query(
+    `SELECT idcampus FROM dimcampus WHERE nomecampus = '${req.body.campus}'`
+  ) //Pega o id do campus escolhido
+    .then((idcampus) => {
+      console.log(idcampus[0].idcampus); //teste
+      db.query(
+        `SELECT idtipo FROM dimtipograd WHERE tipograduacao = '${req.body.tipo}'`
+      ) //Pega o id do tipo da graduação escolhida
+        .then((idtipo) => {
+          console.log(idtipo[0].idtipo);
+          db.query(
+            `SELECT nomecurso FROM dimcurso WHERE idcurso IN (SELECT idcurso FROM fatoregistros WHERE idcampus = '${idcampus[0].idcampus}' AND idtipo = '${idtipo[0].idtipo}')`
+          ) //Busca o curso disponível em um banco de dados dimensional baseado nos ids escolhidos; ver outras queries para mais detalhes
+            .then((data) => {
+              console.log(data);
+              const dataArr = [];
+              for (let x in data) {
+                dataArr.push(data[x].nomecurso);
+              }
+              console.log(dataArr);
+              res.status(201).send(dataArr);
+            })
+            .catch((error) => {
+              console.log("ERROR:", error);
+            });
+        })
+        .catch((error) => {
+          console.log("ERROR:", error);
+        });
+    })
+    .catch((error) => {
+      console.log("ERROR:", error);
+    });
+});
 
 app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`);

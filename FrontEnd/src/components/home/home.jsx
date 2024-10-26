@@ -1,23 +1,23 @@
-import styled from 'styled-components';
-import avatar from '../../assets/images/Avatar.png'
-import logo from '../../assets/images/logo.png'
-import notafacil from '../../assets/images/notafacil.png'
-import { useNavigate } from 'react-router-dom';
-import { useState } from 'react';
+import styled from 'styled-components'; //Permite a escrita de CSS no Javascript
+import avatar from '../../assets/images/Avatar.png' //Importa imagens utilizadas
+import logo from '../../assets/images/logo.png' //Importa imagens utilizadas
+import notafacil from '../../assets/images/notafacil.png' //Importa imagens utilizadas
+import { useNavigate } from 'react-router-dom'; //Permite a navegação entre múltiplas páginas
+import { useState } from 'react'; //Uso de estados do React para armazenar informações de forma dinâmica
 
-export default function Home (){
-  const [ fala, setFala] = useState('Seu futuro começa aqui !')
-  const [ next, setNext] = useState(true)
-  const [sumi, setSumi] = useState(1);
+export default function Home (){ //Exporta a página "Home" para ser utilizada no roteamento
+  const [ fala, setFala] = useState('Seu futuro começa aqui !') //Estado que armazena o texto utlizado na fala
+  const [ next, setNext] = useState(true) //Estado que indica qual tela será mostrada na página inicial
+  const [sumi, setSumi] = useState(1); //Estado que dita qual fala será utilizada na segunda tela da página
 
-  const navigate = useNavigate()
+  const navigate = useNavigate() //Componente que permite a navegação
 
-  function Fala(sum){
-    const newSumi = sumi + sum;
-    setSumi(newSumi);
-    console.log(newSumi)
+  function Fala(sum){ //Função que atualiza as falas na página inicial
+    const newSumi = sumi + sum; //Avança o estado
+    setSumi(newSumi); //Armazena o novo estado
+    console.log(newSumi) 
 
-    if(newSumi === 2){
+    if(newSumi === 2){ //Apresentam as falas em ordem sequencial
       console.log(newSumi + ' if 1 Chegou aqui !')
       setFala('Personalize sua busca e descubra quais faculdades e cursos estão ao seu alcance.')
     } else if (newSumi === 3){
@@ -34,7 +34,7 @@ export default function Home (){
   }
     return(
         <Body>
-          {next ? (
+          {next ? ( //Escolhe qual tela será utilizada
             <>
              <BoxLogo>
             <img className='nome' src={logo}/>
@@ -58,7 +58,7 @@ export default function Home (){
         
     )
 }
-
+//CSS abaixo
 const Body = styled.div`
 display:flex;
 align-items:center;
