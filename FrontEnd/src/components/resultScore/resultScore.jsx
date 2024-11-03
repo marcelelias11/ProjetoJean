@@ -1,6 +1,7 @@
 import styled from "styled-components";
 import avatar from "../../assets/images/avat.png";
 import emojiH from "../../assets/icons/emojiH.png";
+import emojiS from "../../assets/icons/emojiS.png";
 import Menu from "../menuButton/menuButton";
 import { useState, useEffect } from 'react';
 export default function ResultScore(){
@@ -48,55 +49,32 @@ export default function ResultScore(){
       console.error(error);
     });
    }, [])
-   if (notamedia >= notasCorte[0]) {return(
-    <>
-<Body>
-    <img className="emoji" src={emojiH}/>
-<BoxResults>
-    <h1>Sua nota é:</h1>
-    <h2>{notamedia}</h2>
-    <h1>Status</h1>
-    <h2>Aprovado</h2>
-    <h1>Nota de corte:</h1>
-    <h2>Aprovado</h2>
-</BoxResults>
-<Footer>
-    <div className="balao">
-        <p>Parabéns você passaria no curso de {nome} com essa nota !</p>
-    </div>
-        <img src={avatar} className="avatar"/>
-</Footer>
-</Body>
-<Menu/>
-
-</>
-
-)}
-else {return(
-  <>
-<Body>
-  <img className="emoji" src={emojiH}/>
-<BoxResults>
-  <h1>Sua nota é:</h1>
-  <h2>{notamedia}</h2>
-  <h1>Status</h1>
-  <h2>Reprovado</h2>
-  <h1>Nota de corte:</h1>
-  <h2>Reprovado</h2>
-</BoxResults>
-<Footer>
-  <div className="balao">
-      <p>Infelizmente você não passaria no curso de {nome} com essa nota !</p>
-  </div>
-      <img src={avatar} className="avatar"/>
-</Footer>
-</Body>
-<Menu/>
-
-</>
-
-)}
-    
+    return (
+      <>
+        <Body>
+          <img className="emoji" src={notamedia >= notasCorte[0] ? emojiH : emojiS} />
+          <BoxResults notamedia={notamedia} notasCorte={notasCorte}>
+            <h1>Sua nota é</h1>
+            <h2>{notamedia}</h2>
+            <h1>Status</h1>
+            <h2>{notamedia >= notasCorte[0] ? "Aprovado" : "Reprovado"}</h2>
+            <h1>Nota de corte</h1>
+            <h2>{notasCorte[0]}</h2>
+          </BoxResults>
+          <Footer>
+            <div className="balao">
+              <p>
+                {notamedia >= notasCorte[0]
+                  ? `Parabéns você passaria no curso de ${nome} com essa nota !`
+                  : `Infelizmente você não passaria no curso de ${nome} com essa nota !`}
+              </p>
+            </div>
+            <img src={avatar} className="avatar" />
+          </Footer>
+        </Body>
+        <Menu />
+      </>
+    )
 }
 
 const Body = styled.div`
@@ -138,10 +116,11 @@ const Footer = styled.div`
   .avatar{
     width:13rem;
   }
-    .balao {
-        display: flex;
-        align-items: center;
-        justify-content: center;
+
+  .balao {
+    display: flex;
+    align-items: center;
+    justify-content: center;
 
     position: relative;
     padding: 10px;
@@ -234,7 +213,7 @@ justify-content:space-around;
         color:#1E1E1E;
     }
     h2{
-        color:#14AE5C;
+      color: ${(props) => (props.notamedia >= props.notasCorte[0] ? '#14AE5C' : 'red')};
     }
 
     @media (max-width: 768px) {
