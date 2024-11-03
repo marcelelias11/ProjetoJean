@@ -101,7 +101,6 @@ const Footer = styled.div`
   margin-top:-150px;
   left: 0;
   width: 40%;
-
   div{
     width:80%;
     height:10rem;
@@ -153,7 +152,6 @@ const Footer = styled.div`
   //left: 0;
   width: 100%;
   //display:none;
-
   div{
     width:80%;
     height:6rem;
@@ -194,8 +192,12 @@ const Footer = styled.div`
     }
 }
   }
+  
   @media (max-width: 1280px) {
     margin-top: -5rem;
+  }
+  @media (max-height: 1080px) {
+    margin-top:-338px;
   }
 `
 
