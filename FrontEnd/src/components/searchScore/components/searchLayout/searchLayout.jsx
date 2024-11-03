@@ -106,13 +106,14 @@ const BoxImg = styled.div`
 
 
   @media (max-height: 768px) {
-    
+    height: 24rem;
     .marcaNome{
       height:8rem;
+      
     }
   .logotipo {
     height:10rem;
-    
+
   }
 }
 `;
@@ -150,6 +151,7 @@ const BoxInput = styled.div`
     h2{
         font-weight:600;
         color:#6295F7;
+        text-align: center;
     } 
     
     .curso-list{
@@ -166,6 +168,7 @@ const BoxInput = styled.div`
       color:#757575;
       font-weight:600;
       overflow:scroll;
+      text-align: center;
 
     li:hover{
         
@@ -174,6 +177,7 @@ const BoxInput = styled.div`
 
     li{
         margin-top:10px;
+        text-align: center;
     }
     
   }
