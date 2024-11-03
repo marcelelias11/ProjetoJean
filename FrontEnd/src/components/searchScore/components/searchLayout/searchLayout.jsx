@@ -105,9 +105,16 @@ const BoxImg = styled.div`
 
 
 
-  @media (max-width: 768px) {
-    /* Adjust height to auto on smaller screens */
+  @media (max-height: 768px) {
+    
+    .marcaNome{
+      height:8rem;
+    }
+  .logotipo {
+    height:10rem;
+    
   }
+}
 `;
 
 const BoxInput = styled.div`
@@ -183,7 +190,18 @@ const BoxInput = styled.div`
         width:70%;
       }
 }
-
+@media (max-height: 768px) {
+    justify-content:start;
+    height:1.5rem;
+      .miniBox{
+        width:20%;
+      }
+      .curso-list{
+        width:20%;
+        height:7rem;
+        margin-top:3rem;
+      }
+  }
 `
 
 const BoxButton = styled.div`
@@ -211,6 +229,13 @@ const BoxButton = styled.div`
       width:100%;
       .miniButton{
         width:40%;
+      }
+    }
+    @media (max-height: 768px) {
+      width:100%;
+      align-items:start;
+      .miniButton{
+        width:20%;
       }
 }
 `

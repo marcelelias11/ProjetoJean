@@ -8,6 +8,7 @@ export default function ResultScore(){
     let nome = localStorage.getItem('curso'); 
     let notas = JSON.parse(localStorage.getItem('notes'));
     let notassum = 0
+   
     for (let x in notas){
       if (notas[x] == true){
         break

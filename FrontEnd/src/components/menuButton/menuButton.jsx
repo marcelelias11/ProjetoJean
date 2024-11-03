@@ -3,15 +3,30 @@ import { Link } from 'react-router-dom';
 import search from '../../assets/icons/search.png';
 import signup from '../../assets/icons/signup.png';
 import premio from '../../assets/icons/premio.png';
+import { useNavigate } from 'react-router-dom';
 import { useState } from 'react';
 
 export default function Menu() {
+  const navigate = useNavigate()
   // Estado para armazenar as cores de cada item
   const [colors, setColors] = useState({
     signup: '#FFF5D6',
     search: '#FFF5D6',
     result: '#FFF5D6',
   });
+
+  let nome = localStorage.getItem('curso'); 
+    let notas = JSON.parse(localStorage.getItem('notes'));
+
+    function checkNotas(){
+      if (!notas || !nome) {
+      alert('Falta notas e ou curso !') // Navigate back to the previous page
+    } else{
+      navigate('/result')
+    }
+    }
+    
+
 
   // Função para mudar a cor do item clicado
   const handleColorChange = (item) => {
@@ -28,12 +43,12 @@ export default function Menu() {
           <Link to="/signup"><img src={signup} /></Link>
         </div>
         <div className='select' style={{ backgroundColor: colors.search }} onClick={() => handleColorChange('search')}>
-          <Link to="/teste">
+          <Link to="/campus">
             <img src={search} />
           </Link>
         </div>
         <div className='select' style={{ backgroundColor: colors.result }} onClick={() => handleColorChange('result')}>
-          <Link to="/result"><img src={premio} /></Link>
+          <div onClick={checkNotas}><img src={premio} /></div>
         </div>
       </Footer>
     </>

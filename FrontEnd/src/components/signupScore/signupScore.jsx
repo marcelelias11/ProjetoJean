@@ -170,7 +170,6 @@ export default function SignupScore (){
 };
 
 const Container = styled.div`
-
 @media (max-width: 768px) {
     width: 100%;
     margin-bottom: 10px;
@@ -311,7 +310,6 @@ const BoxImg = styled.div`
   justify-content:start;
   height: 10rem;
   width: 100%;
-
   .logotipo {
     margin:auto;
     margin-bottom:-11rem;
@@ -335,6 +333,15 @@ const BoxImg = styled.div`
     .marcaNome{
     width:50%;
     height:25rem;
+    }
+  }
+  @media (max-height: 768px) {
+    height: 4.5rem;
+    width: 100%;
+
+    .marcaNome{
+    margin-top:0.5rem;
+    margin-bottom:none;
     }
   }
 `;
