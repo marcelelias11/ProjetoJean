@@ -98,7 +98,8 @@ const Body = styled.div`
 
 const Footer = styled.div`
   position: relative;
-  margin-top:-150px;
+  top: -150px;
+  //margin-top:-150px;
   left: 0;
   width: 40%;
   div{
@@ -150,6 +151,7 @@ const Footer = styled.div`
    //margin-top: -188rem;
   //bottom: 0;
   //left: 0;
+  top: 0;
   width: 100%;
   //display:none;
   div{
@@ -180,8 +182,8 @@ const Footer = styled.div`
     ::before {
     content: "";
     position: absolute;
-    bottom: -10px;
-    left: 50%;
+    //bottom: -10px;
+    //left: 50%;
     margin-left: -10px;
     border-width: 10px;
     border-style: solid;
@@ -194,7 +196,10 @@ const Footer = styled.div`
   }
   
   @media (max-width: 1280px) {
-    margin-top: -5rem;
+    //margin-top: -5rem;
+  }
+  @media (max-height: 1080px) {
+    //margin-top:-338px;
   }
   @media (max-height: 1080px) {
     margin-top:-338px;
@@ -202,11 +207,12 @@ const Footer = styled.div`
 `
 
 const BoxResults = styled.div`
+position:relative;
 display:flex;
 flex-direction:column;
 justify-content:space-around;
     text-align:center;
-    margin-top:20px;
+    //margin-top:20px;
     width:100%;
     height:25rem;
     font-size:45px;
@@ -219,6 +225,7 @@ justify-content:space-around;
     }
 
     @media (max-width: 768px) {
+        position: absolute;
         //margin-bottom: 25rem;
         width:100%;
         height:17rem;
@@ -228,7 +235,7 @@ justify-content:space-around;
     }
     h2{
         font-size: 28px;
-        color:#14AE5C;
+        color: ${(props) => (props.notamedia >= props.notasCorte[0] ? '#14AE5C' : 'red')};
     }
     }
 

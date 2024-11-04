@@ -44,7 +44,7 @@ export default function SearchLayout({ title, options, link }) {
               <img className='marcaNome' src={logo} />
           </BoxImg>
           <BoxInput>
-              <div className='miniBox' onClick={toggleList}>
+              <div className='inputContainer'><div className='miniBox' onClick={toggleList}>
                   <ion-icon name="school-outline" size="large"></ion-icon>
                   <h2>{titleOp}</h2>
                   <span className="arrow">{isOpen ? '▲' : '▼'}</span>
@@ -57,7 +57,8 @@ export default function SearchLayout({ title, options, link }) {
                           </li>
                       ))}
                   </ul>
-              )}
+              )}</div>
+              
           </BoxInput>
           <BoxButton>
               {isCourse && (
@@ -120,14 +121,22 @@ const BoxImg = styled.div`
 
 const BoxInput = styled.div`
     display:flex;
+    z-index: 0;
     flex-direction:column;
     justify-content:center;
     align-items:center;
     width:100%;
-    height:10rem;
+    //height:auto;
     overflow: visible;
     position: relative;
     cursor:pointer;
+
+    .inputContainer{
+      width:100%;
+      align-items:center;
+      display:flex;
+      flex-direction:column;
+    }
   
     .miniBox{
     display:flex;
@@ -135,7 +144,7 @@ const BoxInput = styled.div`
     justify-content:space-around;
     width:20%;
     height:3rem;
-    position:absolute;
+    position:relative;
     background-color:#FFF5D6;
     border-radius: 5px;
 
@@ -156,15 +165,16 @@ const BoxInput = styled.div`
     
     .curso-list{
       display:flex;
+      z-index:0 ;
       flex-direction:column;
-      justify-content:space-around;
+      //justify-content:space-around;
       align-items:center;
-      margin-top:13rem;
+      margin-top:0rem;
       background-color:#FFF5D6;
       width:20%;
       max-height:10rem;
-      z-index:1;
-      position:absolute;
+      //z-index:1;
+      position:relative;
       color:#757575;
       font-weight:600;
       overflow:scroll;
@@ -176,8 +186,9 @@ const BoxInput = styled.div`
     }
 
     li{
-        margin-top:10px;
-        text-align: center;
+      position: relative;
+  margin-bottom: 10px;
+  text-align: center;
     }
     
   }
@@ -202,8 +213,8 @@ const BoxInput = styled.div`
       }
       .curso-list{
         width:20%;
-        height:7rem;
-        margin-top:3rem;
+        //max-height:7rem;
+        //margin-top:3rem;
       }
   }
 `
