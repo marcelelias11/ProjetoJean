@@ -1,1 +1,1 @@
-A página vite está embutida aqui
+A página vite está embutida aqui, rodar com "npm start" e acessar em localhost:8080
