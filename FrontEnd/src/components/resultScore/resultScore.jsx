@@ -201,6 +201,9 @@ const Footer = styled.div`
   @media (max-height: 1080px) {
     //margin-top:-338px;
   }
+  @media (max-height: 1080px) {
+    margin-top:-338px;
+  }
 `
 
 const BoxResults = styled.div`
