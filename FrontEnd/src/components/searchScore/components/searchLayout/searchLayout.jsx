@@ -19,16 +19,16 @@ export default function SearchLayout({ title, options, link }) {
   const handleOptionClick = (option) => {
     console.log(link);
     if (link === '/curso') {
-            localStorage.setItem('tipo', option)
+            sessionStorage.setItem('tipo', option)
             console.log(option + " tipo");
     } else if (link === '/turno') {
-            localStorage.setItem('campus', option);
+            sessionStorage.setItem('campus', option);
         console.log(option + " Campus");
     } else if (link === '/tipo') {
-            localStorage.setItem('turno', option);
+            sessionStorage.setItem('turno', option);
         console.log(option + " turno");
     }else {    
-        localStorage.setItem('curso', option);
+        sessionStorage.setItem('curso', option);
         console.log(option + " curso");
     }
     setTitleOp(option);

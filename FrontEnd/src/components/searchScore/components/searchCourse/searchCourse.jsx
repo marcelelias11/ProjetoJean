@@ -3,8 +3,8 @@ import { useState, useEffect } from 'react';
 
 function createOption() {
     const [options, setOptions] = useState([]);
-    console.log(localStorage.getItem("campus"));
-    console.log(localStorage.getItem("tipo"));
+    console.log(sessionStorage.getItem("campus"));
+    console.log(sessionStorage.getItem("tipo"));
     useEffect(() => {
         fetch("https://projetojean-1.onrender.com/curso", {
             method: "POST",
@@ -14,8 +14,8 @@ function createOption() {
               "Content-Type": "application/json",
             },
             body: JSON.stringify({
-              campus: localStorage.getItem("campus"),
-              tipo: localStorage.getItem("tipo"),
+              campus: sessionStorage.getItem("campus"),
+              tipo: sessionStorage.getItem("tipo"),
             }),
           })
       .then(async function (response) {

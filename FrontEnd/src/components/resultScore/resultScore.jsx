@@ -6,8 +6,8 @@ import Menu from "../menuButton/menuButton";
 import { useState, useEffect } from 'react';
 export default function ResultScore(){
     const [notasCorte, setNotasCorte] = useState(0)
-    let nome = localStorage.getItem('curso'); 
-    let notas = JSON.parse(localStorage.getItem('notes'));
+    let nome = sessionStorage.getItem('curso'); 
+    let notas = JSON.parse(sessionStorage.getItem('notes'));
     let notassum = 0
    
     for (let x in notas){
@@ -33,9 +33,9 @@ export default function ResultScore(){
             "Content-Type": "application/json",
           },
           body: JSON.stringify({
-            curso: localStorage.getItem("curso"),
-            campus: localStorage.getItem("campus"),
-            tipo: localStorage.getItem("tipo"),
+            curso: sessionStorage.getItem("curso"),
+            campus: sessionStorage.getItem("campus"),
+            tipo: sessionStorage.getItem("tipo"),
           }),
         })
     .then(async function (response) {

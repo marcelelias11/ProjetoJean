@@ -17,7 +17,7 @@ import Menu from '../menuButton/menuButton';
 export default function SignupScore (){
   const navigate = useNavigate();
   const [notes, setNotes] = useState(() => {
-    const savedNotes = localStorage.getItem('notes');
+    const savedNotes = sessionStorage.getItem('notes');
     return savedNotes ? JSON.parse(savedNotes) : {
       natureza: '',
       humano: '',
@@ -54,10 +54,10 @@ export default function SignupScore (){
     setErrorMessage(''); 
     const updatedNotes = { ...tempNotes, signup: true };
     setNotes(updatedNotes);
-    localStorage.setItem('notes', JSON.stringify(updatedNotes));
+    sessionStorage.setItem('notes', JSON.stringify(updatedNotes));
   };
   function backLocal(){
-    localStorage.removeItem("notes");
+    sessionStorage.removeItem("notes");
     location.reload();
   }
   const { signup } = notes;

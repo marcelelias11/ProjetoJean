@@ -15,8 +15,8 @@ export default function Menu() {
     result: '#FFF5D6',
   });
 
-  let nome = localStorage.getItem('curso'); 
-    let notas = JSON.parse(localStorage.getItem('notes'));
+  let nome = sessionStorage.getItem('curso'); 
+    let notas = JSON.parse(sessionStorage.getItem('notes'));
 
     function checkNotas(){
       if (!notas || !nome) {
