@@ -6,7 +6,7 @@ function createOption() {
     console.log(localStorage.getItem("campus"));
     console.log(localStorage.getItem("tipo"));
     useEffect(() => {
-        fetch("http://localhost:8080/curso", {
+        fetch("https://projetojean-1.onrender.com/curso", {
             method: "POST",
             mode: "cors",
             headers: {

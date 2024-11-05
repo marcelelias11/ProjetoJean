@@ -1,7 +1,6 @@
 import styled from 'styled-components';
 import { useState} from 'react';
 import { useNavigate } from 'react-router-dom';
-import { NoteLocalStorage } from '../../hooks/NoteStorage';
 import logo from '../../assets/images/notafacil.png'
 import nat from '../../assets/icons/01.png'
 import nat2 from '../../assets/icons/011.png'
@@ -13,7 +12,6 @@ import mat from '../../assets/icons/04.png'
 import mat2 from '../../assets/icons/044.png'
 import red from '../../assets/icons/05.png'
 import red2 from '../../assets/icons/055.png'
-import edit from '../../assets/icons/edit.png'
 import Menu from '../menuButton/menuButton';
 
 export default function SignupScore (){

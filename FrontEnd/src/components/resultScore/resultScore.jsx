@@ -25,7 +25,7 @@ export default function ResultScore(){
     console.log(notas);
     console.log(notamedia)
     useEffect(() => {
-      fetch("http://localhost:8080/result", {
+      fetch("https://projetojean-1.onrender.com/result", {
           method: "POST",
           mode: "cors",
           headers: {

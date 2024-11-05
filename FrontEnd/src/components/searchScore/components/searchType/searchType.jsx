@@ -4,7 +4,7 @@ import { useState, useEffect } from 'react';
 function createOption() {
     const [options, setOptions] = useState([]);
     useEffect(() => {
-        fetch("http://localhost:8080/tipo")
+        fetch("https://projetojean-1.onrender.com/tipo")
       .then(async function (response) {
         return await response.json();
       })
