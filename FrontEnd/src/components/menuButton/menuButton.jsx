@@ -72,10 +72,10 @@ const Footer = styled.footer`
   align-items: center;
   overflow: visible;
   margin: auto;
-  //margin-bottom: 0;
+  margin-top: 10%;
   width: 100%;
   bottom: 0;
-  position: relative;
+  position: fixed;
   background-color: #FFF5D6 !important;
   
 
