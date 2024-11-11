@@ -1,20 +1,20 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect } from "react";
 
 export const NoteLocalStorage = (key, initialValue) => {
-  // Função para obter o valor inicial do localStorage
+  // Função para obter o valor inicial do sessionStorage
   const getStoredValue = () => {
-    const storedValue = localStorage.getItem(key);
+    const storedValue = sessionStorage.getItem(key);
     return storedValue ? JSON.parse(storedValue) : initialValue;
   };
 
-  console.log(key)
+  console.log(key);
 
   // Usando useState para gerenciar o estado
   const [value, setValue] = useState(getStoredValue);
 
-  // Efeito para atualizar o localStorage sempre que o valor mudar
+  // Efeito para atualizar o sessionStorage sempre que o valor mudar
   useEffect(() => {
-    localStorage.setItem(key, JSON.stringify(value));
+    sessionStorage.setItem(key, JSON.stringify(value));
   }, [key, value]);
 
   return [value, setValue];
