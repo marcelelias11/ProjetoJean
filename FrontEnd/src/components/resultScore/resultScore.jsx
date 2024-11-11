@@ -5,7 +5,8 @@ import emojiS from "../../assets/icons/emojiS.png";
 import Menu from "../menuButton/menuButton";
 import { useState, useEffect } from 'react';
 export default function ResultScore(){
-    const [notasCorte, setNotasCorte] = useState(0)
+    const [notasCorte, setNotasCorte] = useState([{nota2024ac:0}])
+    const [notasMedia, setNotasMedia] = useState(0)
     useEffect(() => {
       fetch("https://projeto-jean-back.vercel.app/result", {
           method: "POST",
@@ -27,45 +28,38 @@ export default function ResultScore(){
     .then(async function (text) {
       console.log(text)
       setNotasCorte(text)
+      let notas = JSON.parse(sessionStorage.getItem('notes'));
+    console.log(text)
+    console.log(`ATENÇÃO: ${JSON.stringify(notas)}`)
+    let notassum = (notas.natureza * Number(text[0].cienciasdanatureza)) + (notas.humano * Number(text[0].cienciashumanas)) + 
+    (notas.ling * Number(text[0].linguagens)) + (notas.mat * Number(text[0].matematica)) + (notas.red * Number(text[0].redacao));
+    console.log(`ATENÇÃO: ${notassum}`)
+    let notamedia = notassum/((Number(text[0].cienciasdanatureza)) + 
+      Number(text[0].cienciashumanas) + Number(text[0].linguagens) + Number(text[0].matematica) + Number(text[0].redacao));
+      console.log(`ATENÇÃO: ${notamedia}`)
+    setNotasMedia(notamedia)
     })
     .catch((error) => {
       console.error(error);
     });
    }, [])
     let nome = sessionStorage.getItem('curso'); 
-    let notas = JSON.parse(sessionStorage.getItem('notes'));
-    let notassum = 0
-    console.log(notasCorte)
-    for (let x in notas){
-      if (notas[x] == true){
-        break
-      }
-      let nota = String(notas[x]).replace(',', '.');
-      console.log(`Nota ${x}: ` + nota)
-      notassum += Number(nota)
-      console.log(notassum)
-    }
-    let notamedia = notassum/(Object.keys(notas).length-1)
-    console.log("notas.length: " + Object.keys(notas).length)
-    console.log(nome);
-    console.log(notas);
-    console.log(notamedia)
     return (
       <>
         <Body>
-          <img className="emoji" src={notamedia >= notasCorte[0] ? emojiH : emojiS} />
-          <BoxResults notamedia={notamedia} notasCorte={notasCorte}>
+          <img className="emoji" src={notasMedia >= notasCorte[0].nota2024ac ? emojiH : emojiS} />
+          <BoxResults notamedia={notasMedia} notasCorte={notasCorte[0].nota2024ac}>
             <h1>Sua nota é</h1>
-            <h2>{notamedia}</h2>
+            <h2>{notasMedia}</h2>
             <h1>Status</h1>
-            <h2>{notamedia >= notasCorte[0] ? "Aprovado" : "Reprovado"}</h2>
+            <h2>{notasMedia >= notasCorte[0].nota2024ac ? "Aprovado" : "Reprovado"}</h2>
             <h1>Nota de corte</h1>
-            <h2>{notasCorte[0]}</h2>
+            <h2>{notasCorte[0].nota2024ac}</h2>
           </BoxResults>
           <Footer>
             <div className="balao">
               <p>
-                {notamedia >= notasCorte[0]
+                {notasMedia >= notasCorte[0]
                   ? `Parabéns você passaria no curso de ${nome} com essa nota !`
                   : `Infelizmente você não passaria no curso de ${nome} com essa nota !`}
               </p>
@@ -222,7 +216,7 @@ justify-content:space-around;
         color:#1E1E1E;
     }
     h2{
-      color: ${(props) => (props.notamedia >= props.notasCorte[0] ? '#14AE5C' : 'red')};
+      color: ${(props) => (props.notamedia >= props.notasCorte ? '#14AE5C' : 'red')};
     }
 
     @media (max-width: 768px) {
@@ -236,7 +230,7 @@ justify-content:space-around;
     }
     h2{
         font-size: 28px;
-        color: ${(props) => (props.notamedia >= props.notasCorte[0] ? '#14AE5C' : 'red')};
+        color: ${(props) => (props.notamedia >= props.notasCorte ? '#14AE5C' : 'red')};
     }
     }
 
