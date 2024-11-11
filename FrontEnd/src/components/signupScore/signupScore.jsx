@@ -38,7 +38,7 @@ export default function SignupScore (){
   function validateDecimal(numero) {
     const numberPointer = numero.replace(',', '.');
     const num = parseFloat(numberPointer);
-    return !isNaN(num) && num % 1 !== 0;
+    return !isNaN(num)
   }
 
   const saveNotes = (event) => {
