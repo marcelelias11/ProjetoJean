@@ -59,15 +59,16 @@ export default function ResultScore(){
           <Footer>
             <div className="balao">
               <p>
-                {notasMedia >= notasCorte[0]
+                {notasMedia >= notasCorte[0].nota2024ac
                   ? `Parabéns você passaria no curso de ${nome} com essa nota !`
                   : `Infelizmente você não passaria no curso de ${nome} com essa nota !`}
               </p>
             </div>
             <img src={avatar} className="avatar" />
           </Footer>
+          <Menu />
         </Body>
-        <Menu />
+        
       </>
     )
 }
