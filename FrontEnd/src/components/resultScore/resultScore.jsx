@@ -25,7 +25,7 @@ export default function ResultScore(){
     console.log(notas);
     console.log(notamedia)
     useEffect(() => {
-      fetch("https://projetojean-1.onrender.com/result", {
+      fetch("https://projeto-jean-back.vercel.app/result", {
           method: "POST",
           mode: "cors",
           headers: {

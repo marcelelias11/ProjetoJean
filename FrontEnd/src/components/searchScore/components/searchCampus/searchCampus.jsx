@@ -4,7 +4,7 @@ import { useState,useEffect } from 'react';
 function createOption() {
     const [options, setOptions] = useState([]);
     useEffect(() => {
-        fetch("https://projetojean-1.onrender.com/campus")
+        fetch("https://projeto-jean-back.vercel.app/campus")
       .then(async function (response) {
         return await response.json();
       })

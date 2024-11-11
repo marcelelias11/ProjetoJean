@@ -6,7 +6,7 @@ function createOption() {
     console.log(sessionStorage.getItem("campus"));
     console.log(sessionStorage.getItem("tipo"));
     useEffect(() => {
-        fetch("https://projetojean-1.onrender.com/curso", {
+        fetch("https://projeto-jean-back.vercel.app/curso", {
             method: "POST",
             mode: "cors",
             headers: {
