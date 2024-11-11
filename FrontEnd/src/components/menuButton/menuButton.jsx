@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import search from '../../assets/icons/search.png';
 import signup from '../../assets/icons/signup.png';
 import premio from '../../assets/icons/premio.png';
+import form from '../../assets/icons/form.svg';
 import { useNavigate } from 'react-router-dom';
 import { useState } from 'react';
 
@@ -36,6 +37,12 @@ export default function Menu() {
     }));
   };
 
+  function formNav() {
+    if (confirm('Gostou do nosso app? Caso sim, aperte "ok" para responder um formulário de avaliação. Você irá nos ajudar bastante!')){
+      location.href = "https://docs.google.com/forms/d/e/1FAIpQLSdt6T98lugjbltN5O40srID4La8eYLtqZUIvIFMOPO553WqTA/viewform?fbzx=-8078658152923075375";
+    }
+  }
+
   return (
     <>
       <Footer>
@@ -49,6 +56,9 @@ export default function Menu() {
         </div>
         <div className='select' style={{ backgroundColor: colors.result }} onClick={() => handleColorChange('result')}>
           <div onClick={checkNotas}><img src={premio} /></div>
+        </div>
+        <div className='select' style={{ backgroundColor: colors.result }} onClick={() => handleColorChange('result')}>
+          <div onClick={formNav}><img src={form} /></div>
         </div>
       </Footer>
     </>
