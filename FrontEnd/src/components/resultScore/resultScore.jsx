@@ -6,24 +6,6 @@ import Menu from "../menuButton/menuButton";
 import { useState, useEffect } from 'react';
 export default function ResultScore(){
     const [notasCorte, setNotasCorte] = useState(0)
-    let nome = sessionStorage.getItem('curso'); 
-    let notas = JSON.parse(sessionStorage.getItem('notes'));
-    let notassum = 0
-   
-    for (let x in notas){
-      if (notas[x] == true){
-        break
-      }
-      let nota = String(notas[x]).replace(',', '.');
-      console.log(`Nota ${x}: ` + nota)
-      notassum += Number(nota)
-      console.log(notassum)
-    }
-    let notamedia = notassum/(Object.keys(notas).length-1)
-    console.log("notas.length: " + Object.keys(notas).length)
-    console.log(nome);
-    console.log(notas);
-    console.log(notamedia)
     useEffect(() => {
       fetch("https://projeto-jean-back.vercel.app/result", {
           method: "POST",
@@ -35,6 +17,7 @@ export default function ResultScore(){
           body: JSON.stringify({
             curso: sessionStorage.getItem("curso"),
             campus: sessionStorage.getItem("campus"),
+            turno: sessionStorage.getItem("turno"),
             tipo: sessionStorage.getItem("tipo"),
           }),
         })
@@ -49,6 +32,24 @@ export default function ResultScore(){
       console.error(error);
     });
    }, [])
+    let nome = sessionStorage.getItem('curso'); 
+    let notas = JSON.parse(sessionStorage.getItem('notes'));
+    let notassum = 0
+    console.log(notasCorte)
+    for (let x in notas){
+      if (notas[x] == true){
+        break
+      }
+      let nota = String(notas[x]).replace(',', '.');
+      console.log(`Nota ${x}: ` + nota)
+      notassum += Number(nota)
+      console.log(notassum)
+    }
+    let notamedia = notassum/(Object.keys(notas).length-1)
+    console.log("notas.length: " + Object.keys(notas).length)
+    console.log(nome);
+    console.log(notas);
+    console.log(notamedia)
     return (
       <>
         <Body>

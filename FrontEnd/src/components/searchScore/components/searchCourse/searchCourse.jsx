@@ -16,6 +16,7 @@ function createOption() {
             body: JSON.stringify({
               campus: sessionStorage.getItem("campus"),
               tipo: sessionStorage.getItem("tipo"),
+              turno: sessionStorage.getItem("turno")
             }),
           })
       .then(async function (response) {
